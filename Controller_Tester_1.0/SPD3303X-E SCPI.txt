@@ -1,0 +1,44 @@
+>>> import pyvisa
+>>> rm = pyvisa.ResourceManager()
+>>> rm.list_resources()
+('USB0::0xF4EC::0x1430::SPD3XIDX5R2496::INSTR', 'ASRL3::INSTR', 'ASRL4::INSTR', 'ASRL13::INSTR')
+>>> 
+>>> my_instrument = rm.open_resource('USB0::0xF4EC::0x1430::SPD3XIDX5R2496::INSTR')
+>>> print(my_instrument.query('*IDN?'))
+Siglent Technologies,SPD3303X-E,SPD3XIDX5R2496,1.01.01.02.07R2,V3.0
+>>> 
+
+print(my_instrument.query('*IDN?')) #### returns device ID
+
+print(my_instrument.write('OUTP CH1,ON')) #### turn on CH1 returns "13"
+
+print(my_instrument.write('OUTP CH1,OFF')) #### turn off CH1 returns "14"
+
+print(my_instrument.write('OUTP CH2,ON')) #### turn on CH2
+
+print(my_instrument.write('OUTP:TRACK 0')) #### turn on independent Operation Mode returns "14"
+
+print(my_instrument.write('OUTP:TRACK 1')) #### turn on series Operation mode returns "14"
+
+print(my_instrument.write('OUTP:TRACK 2')) #### turn on parallel Operation mode returns "14"
+
+
+print(my_instrument.write('CH1:CURR 2')) #### sets CH1 or series current to 2Amps
+
+print(my_instrument.write('CH1:VOLT 24')) #### sets CH1 or series voltage to 24volts returns 13
+
+
+
+print(my_instrument.query('CH1:CURR?')) #### queries CH1 or series current max setting returns amps
+
+print(my_instrument.query('MEAS:CURR? CH1')) #### measures CH1 or series current output returns amps
+
+print(my_instrument.query('CH1:VOLT?')) #### queries CH1 or series voltage max setting returns volts
+
+print(my_instrument.query('MEAS:VOLT? CH1')) #### measures CH1 or series voltage output returns volts
+
+sourceVoltage='24'
+sourceCurrent='.9'
+ch1RampVolt(sourceVoltage, sourceCurrent)
+
+R02-000521-004-0040

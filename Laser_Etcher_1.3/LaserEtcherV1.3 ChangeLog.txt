@@ -1,0 +1,3 @@
+V1.0 - initial release
+V1.3 - added scpi serial commands to  update config SD files through USB
+V1.3 - readStringUntil('\r'+'\n') needs to be in this format

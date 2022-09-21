@@ -1,0 +1,6 @@
+V1.0 - initial release
+V1.3 - added scpi serial commands to  update config SD files through USB
+V1.3 - readStringUntil('\n') needs to be in this format
+V1.4 - developmental version only
+V1.5 - fixed SD file updating through USB (was broken)
+V1.5 - added lift table with stepper, manual key switch, and limit switch

@@ -1,0 +1,13 @@
+*idn?        	"Controller Tester, V1.0"
+dire?		"read direction sample Foward, Reverse, No Movement"
+spee?		"read speed sample in RPM"
+volt?		"read sample of 3v3 pGood"
+mode?		returns 1 for auto and 0 for manual
+print		"prints all reads"
+keys:1/0	"write key switch on or off"
+frwd:		"write direction switch forward"
+rvrs:		"write direction switch reverse"
+spee:0-100	"write speed 0-100%"
+brk1:1/0	"write brake 1 on or off"
+brk2:1/0	"write brake 2 on or off"
+mode:1/0	"Auto mode Safety index to tell arduino not to go into manual mode until auto mode is complete"

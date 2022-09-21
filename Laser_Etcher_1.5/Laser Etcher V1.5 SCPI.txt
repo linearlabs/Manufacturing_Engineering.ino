@@ -1,0 +1,24 @@
+help? returns the following help commands
+main: returns to main menu
+*idn? returns PN SN and Software Ver of Arduino PLC
+list: returns all config files stored on SD
+jnum:xxxx writes jobNum
+file:xxxx.TXT writes jobNumFile
+snum:xxxx writes serial number
+pnum:xxx-xxxxxx-xxx writes partnumber
+leng:(1 through 10) writes length of serial number digits
+print returns jobNumFile,partNum,serNum,jobNum,SerLeng
+rite: writes new text file to SD config with current variables
+read:XXXX.TXT reads specified text file from SD config
+load:XXXX.TXT reads and loads config variables from SD card
+dele:XXXX.TXT deletes text file from SD config
+find:XXX-XXXXXX-XXX-XXXX seaches for pnum in config files
+fume:1/0 enable/disable fume extractor
+lite:1/0 enable/disable light
+lift:1/0 enable/disable lift stepper
+home: lift moves to home");
+limi? is lift at home limit
+rang: laser range finder
+mvup: 0-4880 move lift up by this many steps
+mvdn: 4880-0 move lift down by this many steps
+step? queries curentPositionZ (lift stepper)

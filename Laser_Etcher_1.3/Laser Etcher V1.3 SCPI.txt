@@ -1,0 +1,18 @@
+? returns the following help commands
+*idn? returns PN SN and Software Ver of Arduino PLC
+list: returns all config files stored on SD
+find:xxx-xxxxxx-xxx-xxxx finds config from partnumber entered
+jnum:xxxx writes jobNum and jobNumFile
+snum:xxxx writes serial number
+pnum:xxx-xxxxxx-xxx writes partnumber
+leng:1 - 10 writes length of serial number digits
+print returns jobNumFile,partNum,serNum,jobNum,SerLeng
+snum? reads serial number
+jnum? reads job number
+pnum? reads partnumber
+leng? reads length of serial number digits
+file? reads jobNumFile
+rite: writes text file to SD config with current variables please verify variables first with print
+read:XXXX.TXT reads specified text file from SD config
+load:XXXX.TXT reads and loads config variables from SD card
+dele:XXXX.TXT deletes text file from SD config
