@@ -90,8 +90,8 @@ void setup() {
   pinMode(dn, INPUT_PULLUP);
   pinMode(Estop, INPUT_PULLUP);
   pinMode(manual_SwY, INPUT_PULLUP);
-  stepperX.setAcceleration(1000);
-  stepperX.setMaxSpeed(500);
+  stepperX.setAcceleration(500);
+  stepperX.setMaxSpeed(250);
   stepperY.setAcceleration(500);
   stepperY.setMaxSpeed(500);
   pinMode (en_Y, OUTPUT); // Y Driver enable and LED
