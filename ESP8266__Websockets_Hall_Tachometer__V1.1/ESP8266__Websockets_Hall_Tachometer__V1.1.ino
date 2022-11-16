@@ -1,4 +1,4 @@
-// ESP8266, Websockets Hall Tachometer, V1.0
+// ESP8266, Websockets Hall Tachometer, V1.1
 
 #include <ESP8266WiFi.h>
 #include <Arduino.h>
@@ -12,11 +12,11 @@
 #define SCREEN_ADDRESS 0x3C
 #define LED 2
 
-//const char* ssid = "Production Line";          // Your WiFi SSID
-//const char* password = "t1me33Pus$movinG";  // Your WiFi Password
-const char* ssid = "Linear Labs Corp";          // Your WiFi SSID
-const char* password = "3n3rgy ^ of humanity!";  // Your WiFi Password
-String idn = "ESP8266, Websockets Hall Tachometer, V1.1";
+const char* ssid = "Production Line";          // Your WiFi SSID
+const char* password = "t1me33Pus$movinG";  // Your WiFi Password
+//const char* ssid = "Linear Labs Corp";          // Your WiFi SSID
+//const char* password = "3n3rgy ^ of humanity!";  // Your WiFi Password
+String idn = "ESP8266-TACH1, Websockets Hall Tachometer, V1.1";
 String d = "";
 String message = "";
 unsigned long currentMillis = 0;
@@ -85,9 +85,9 @@ void updateTerms() {
     display.println("");
     display.println("");
     display.println(ssid);
-    display.println("");
     display.println(WiFi.localIP());
-    display.print("/webserial");
+    display.println("/webserial");
+    display.print(WiFi.macAddress());
     display.display();
     //WebSerial.print(freq * 60 * 1000);
     WebSerial.println(message);
