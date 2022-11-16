@@ -41,9 +41,9 @@ void Edit_Time_Buttons() {
       yearNow = yearNow + add_subtract;
       add_subtract = 0;
       if (yearNow > 99) {
-        yearNow = 22;
+        yearNow = 00;
       }
-      if (yearNow < 22) {
+      if (yearNow < 0) {
         yearNow = 99;
       }
       display.setTextColor(BLACK, WHITE);
