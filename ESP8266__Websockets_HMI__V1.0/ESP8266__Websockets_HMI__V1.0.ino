@@ -7,7 +7,7 @@
 #include <WebSerial.h>
 #include <LiquidCrystal_I2C.h>
 
-#define up A0 // up button is on ADC pin
+#define up 16 // up button is on ADC pin (16 cannot be input_pullup)
 #define dn 13 // dn button pin D7
 #define ent 14 // up button pin D5
 #define esc 12 // dn button pin D6
@@ -113,6 +113,7 @@ void setup() {
   lcd.print(WiFi.localIP());
   lcd.setCursor(0, 1);
   lcd.print(subdirectory);
+  pinMode(up, INPUT); // dn
   pinMode(dn, INPUT_PULLUP); // dn
   pinMode(ent, INPUT_PULLUP); // ent
   pinMode(esc, INPUT_PULLUP); // esc
@@ -122,15 +123,15 @@ void scanButtons() {
   currentMillis = millis();
   if (currentMillis - previousMillis >= interval) { // Timed Function, scan and print buttons timed
     previousMillis = currentMillis;
-    upVal = analogRead(up); // (buttonOff=653 ; buttonOn=2
+    upVal = digitalRead(up); // (buttonOff=653 ; buttonOn=2
     dnVal = digitalRead(dn);
     entVal = digitalRead(ent);
     escVal = digitalRead(esc);
-    if ((upVal < 300) && (upIndex == 0)) {
+    if ((upVal == LOW) && (upIndex == 0)) {
       Serial.println("upbt:1");
       upIndex = 1;
     }
-    if ((upVal >= 300) && (upIndex == 1)) {
+    if ((upVal == HIGH) && (upIndex == 1)) {
       Serial.println("upbt:0");
       upIndex = 0;
     }

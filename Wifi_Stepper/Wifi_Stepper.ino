@@ -20,11 +20,11 @@
 #include <avr/power.h> // Required for 16 MHz Adafruit Trinket
 #endif
 #define LED_PIN 13
-#define LED_COUNT 8
+#define LED_COUNT 3
 #define OLED_RESET -1 // -1 = no reset pin on OLED
 #define SCREEN_ADDRESS 0x3C
-#define halfStep 16 // high = halfstep / Low = FUllstep
-#define stepPin 15 // Driver X pusle pin
+#define halfStep 15 // high = halfstep / Low = FUllstep
+#define stepPin 16 // Driver X pusle pin
 #define dirPin 12 // Driver X direction pin
 #define enPin 14
 #define motorInterfaceType 1
@@ -72,12 +72,12 @@ void setup() {
   pinMode (enPin, OUTPUT); // X Driver enable and LED
   digitalWrite(enPin, HIGH); // en_X_State is variable high or low
   pinMode (halfStep, OUTPUT); // X Driver enable and LED
-  digitalWrite(halfStep, LOW); // en_X_State is variable high or low
+  digitalWrite(halfStep, LOW); 
   strip.begin(); // INITIALIZE NeoPixel strip object (REQUIRED)
   //strip.show(); // Turn OFF all pixels ASAP
   //strip.setBrightness(255); // Set BRIGHTNESS to about 1/5 (max = 255)
   stepper.setAcceleration(500);
-  stepper.setMaxSpeed(200);
+  stepper.setMaxSpeed(50);
   display.begin(SSD1306_SWITCHCAPVCC, SCREEN_ADDRESS); //or 0x3C
   display.setTextSize(1); // Draw 2X-scale text
   display.setTextColor(SSD1306_WHITE);
