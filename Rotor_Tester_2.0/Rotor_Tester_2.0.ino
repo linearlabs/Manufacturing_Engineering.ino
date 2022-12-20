@@ -30,7 +30,8 @@ boolean ReadSerial1PortData()
 void store(String input) {
   String startStr = input.substring(0, 5);
   if (startStr == "*idn?") {
-    Serial.println(idn);
+    //Serial.println(idn);
+    delay(200);
     Serial1.println(idn);
   }
 }
@@ -45,10 +46,10 @@ void setup() {
   //digitalWrite(en_X, LOW);
   //digitalWrite(en_V, HIGH);
   while (!Serial1 && millis() < 4000);
-  Serial.begin(115200);
-  Serial.setTimeout(20);
+  //Serial.begin(115200);
+  //Serial.setTimeout(20);
   Serial1.begin(115200);
-  Serial1.setTimeout(20);
+  //Serial1.setTimeout(20);
 }
 
 void loop() {
