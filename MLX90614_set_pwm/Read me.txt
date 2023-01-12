@@ -1,0 +1,6 @@
+Use the modified versions of the Adafruit_MLX90614 libraries contained in this folder (ie: .cpp & .h)
+Changing to PWM mode required adding functions to libs.
+When in PWM mode, pulse SCL once to ground to go back into I2C mode for further EEPROM programming. 
+
+PWM out = SDA
+temp range = -20 - 120 *C
