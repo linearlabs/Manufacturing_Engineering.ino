@@ -1,14 +1,23 @@
 //EndOfLineTesterV1.0_Teensy4.0_LLC2022
 
-#include <Wire.h>
-#include <Adafruit_GFX.h>
-#include <Adafruit_SSD1306.h>
-#include "LLC_FULL_LOGO.h"  // img
-#define OLED_RESET -1
-#define SCREEN_ADDRESS 0x3C
+#include <Wire.h> // i2c
+#include <Adafruit_GFX.h> //oled
+#include <Adafruit_SSD1306.h> // oled
+#include "LLC_FULL_LOGO.h"  // bitmap img
+#define OLED_RESET -1 // oled
+#define SCREEN_ADDRESS 0x3C // oled
+
+#define EN_230V 23 // Enable on 230V VFD
+#define EN_460V 22 // Enable on 460V VFD
+#define M_Type1 21 // enables Delta Star Enclosure Opto Isolators
+#define M_Type2 20 // enables Wye/Double Wye Enclosure Opto Isolators
 
 #define pwm_pin 15  // speed wiper DAC
-#define rdy_pin 14  // 10Vin
+#define rdy_pin 14  // 10Vin enable for speed
+
+#define relay2 12 // 230V vfd Relays & 230V motor voltage selector Relays
+#define relay1 11 // 460V vfd Relays & 460V motor voltage selector Relays
+
 #define YY230V_LED 10
 #define Y460V_LED 9
 #define Y460V2_LED 8
@@ -25,7 +34,7 @@
 unsigned long lastDebounceTime = 0;  // the last time the output pin was toggled
 unsigned long debounceDelay = 50;    // the debounce time; increase if the output flickers
 int BTN_Debounce = 50;
-int PWM = 0;
+int PWM = 255;
 int displayPWM = 0;
 
 bool UP_BTN;
@@ -56,6 +65,19 @@ bool enable_Delta230V = false;  // enable state
 Adafruit_SSD1306 display(128, 64, &Wire, OLED_RESET);
 
 void setup() {
+
+  pinMode(EN_230V, OUTPUT); // Enable on 230V VFD
+  pinMode(EN_460V, OUTPUT); // Enable on 460V VFD
+  pinMode(M_Type1, OUTPUT); // enables Delta Star Enclosure Opto Isolators
+  pinMode(M_Type2, OUTPUT); // enables Wye/Double Wye Enclosure Opto Isolators
+  pinMode(relay2, OUTPUT); // 230V vfd Relays & 230V motor voltage selector Relays
+  pinMode(relay1, OUTPUT); // 460V vfd Relays & 460V motor voltage selector Relays
+  digitalWrite(EN_230V, LOW); // Enable on 230V VFD
+  digitalWrite(EN_460V, LOW); // Enable on 460V VFD
+  digitalWrite(M_Type1, LOW); // enables Delta Star Enclosure Opto Isolators
+  digitalWrite(M_Type2, LOW); // enables Wye/Double Wye Enclosure Opto Isolators
+  digitalWrite(relay2, LOW); // 230V vfd Relays & 230V motor voltage selector Relays
+  digitalWrite(relay1, LOW); // 460V vfd Relays & 460V motor voltage selector Relays
 
   display.begin(SSD1306_SWITCHCAPVCC, SCREEN_ADDRESS);  //or 0x3C
   display.setTextColor(SSD1306_WHITE);

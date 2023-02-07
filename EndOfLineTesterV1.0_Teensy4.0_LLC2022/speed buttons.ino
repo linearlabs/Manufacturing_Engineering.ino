@@ -6,9 +6,9 @@ void scanSpeedButtons() {
   DN_BTN = digitalRead(DN);
 
   // UP Button
-  if ((UP_BTN == LOW) && (PWM <= 255)) {
-    PWM++;
-    displayPWM = map(PWM, 0, 255, 0, 100);
+  if ((UP_BTN == LOW) && (PWM >= 1)) {
+    PWM--;
+    displayPWM = map(PWM, 255, 1, 0, 100);
     display.clearDisplay();
     display.setCursor(0, 0);  // Start at top-left corner
     display.println("Speed");
@@ -16,11 +16,12 @@ void scanSpeedButtons() {
     display.print("%");
     display.display();
     analogWrite(pwm_pin, PWM);
+    Serial.println(PWM);
   }
 
-  if ((DN_BTN == LOW) && (PWM >= 0)) {
-    PWM--;
-    displayPWM = map(PWM, 0, 255, 0, 100);
+  if ((DN_BTN == LOW) && (PWM <= 255)) {
+    PWM++;
+    displayPWM = map(PWM, 255, 1, 0, 100);
     display.clearDisplay();
     display.setCursor(0, 0);  // Start at top-left corner
     display.println("Speed");
@@ -28,15 +29,17 @@ void scanSpeedButtons() {
     display.print("%");
     display.display();
     analogWrite(pwm_pin, PWM);
+    Serial.println(PWM);
   }
 
   // STOP Button
   if (STOP_BTN == LOW) {
+
     enable_YY230V = false;
     enable_Y460V = false;
     enable_Y460V2 = false;
     enable_Delta230V = false;
-    PWM = 0;
+    PWM = 255;  // 255 = 0% speed
     displayPWM = 0;
     display.clearDisplay();                                   //for Clearing the display
     display.drawBitmap(0, 0, LLC_FULL_LOGO, 128, 64, WHITE);  // display.drawBitmap(x position, y position, bitmap data, bitmap width, bitmap height, color)
@@ -47,5 +50,14 @@ void scanSpeedButtons() {
     digitalWrite(Delta230V_LED, HIGH);
     analogWrite(pwm_pin, PWM);
     digitalWrite(rdy_pin, HIGH);  // LOW enables speed adjustment
+
+    // possible need a delay here for motor stoping time
+
+    digitalWrite(EN_230V, LOW);   // Enable on 230V VFD
+    digitalWrite(EN_460V, LOW);   // Enable on 460V VFD
+    digitalWrite(M_Type1, LOW);   // enables Delta Star Enclosure Opto Isolators
+    digitalWrite(M_Type2, LOW);   // enables Wye/Double Wye Enclosure Opto Isolators
+    digitalWrite(relay2, LOW);    // 230V vfd Relays & 230V motor voltage selector Relays
+    digitalWrite(relay1, LOW);    // 460V vfd Relays & 460V motor voltage selector Relays
   }
 }
