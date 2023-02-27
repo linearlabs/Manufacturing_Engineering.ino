@@ -31,13 +31,7 @@ void scanModeButtons() {
           PWM = 255;  // 255 = 0% speed
           analogWrite(pwm_pin, PWM);
           digitalWrite(rdy_pin, LOW);  // LOW enables speed adjustment
-
-          digitalWrite(EN_230V, HIGH);  // Enable on 230V VFD
-          digitalWrite(EN_460V, LOW);   // Enable on 460V VFD
-          digitalWrite(M_Type1, LOW);  // enables Delta Star Enclosure Opto Isolators
-          digitalWrite(M_Type2, HIGH);   // enables Wye/Double Wye Enclosure Opto Isolators
-          digitalWrite(relay2, HIGH);   // 230V vfd Relays & 230V motor voltage selector Relays
-          digitalWrite(relay1, LOW);    // 460V vfd Relays & 460V motor voltage selector Relays
+          YY230V_Relays(); // possibly need to enable relays before enabling speed and/or write PWM after relay enable with delay (VFD starts funky)
         }
       }
     }
@@ -70,13 +64,7 @@ void scanModeButtons() {
           PWM = 255;  // 255 = 0% speed
           analogWrite(pwm_pin, PWM);
           digitalWrite(rdy_pin, LOW);  // LOW enables speed adjustment
-
-          digitalWrite(EN_230V, LOW);   // Enable on 230V VFD
-          digitalWrite(EN_460V, HIGH);  // Enable on 460V VFD
-          digitalWrite(M_Type1, LOW);  // enables Delta Star Enclosure Opto Isolators
-          digitalWrite(M_Type2, HIGH);   // enables Wye/Double Wye Enclosure Opto Isolators
-          digitalWrite(relay2, LOW);    // 230V vfd Relays & 230V motor voltage selector Relays
-          digitalWrite(relay1, HIGH);   // 460V vfd Relays & 460V motor voltage selector Relays
+          Y460V_Relays();
         }
       }
     }
@@ -91,7 +79,6 @@ void scanModeButtons() {
     if (Y460V2_BTN != Y460V2_State) {
       Y460V2_State = Y460V2_BTN;
       if (Y460V2_State == LOW) {
-
         if (enable_Y460V2 == false) {
           enable_Y460V2 = true;
           enable_YY230V = false;
@@ -109,13 +96,7 @@ void scanModeButtons() {
           PWM = 255;  // 255 = 0% speed
           analogWrite(pwm_pin, PWM);
           digitalWrite(rdy_pin, LOW);  // LOW enables speed adjustment
-
-          digitalWrite(EN_230V, LOW);   // Enable on 230V VFD
-          digitalWrite(EN_460V, HIGH);  // Enable on 460V VFD
-          digitalWrite(M_Type1, HIGH);   // enables Delta Star Enclosure Opto Isolators
-          digitalWrite(M_Type2, LOW);  // enables Wye/Double Wye Enclosure Opto Isolators
-          digitalWrite(relay2, LOW);    // 230V vfd Relays & 230V motor voltage selector Relays
-          digitalWrite(relay1, HIGH);   // 460V vfd Relays & 460V motor voltage selector Relays
+          Y460V2_Relays();
         }
       }
     }
@@ -130,7 +111,6 @@ void scanModeButtons() {
     if (Delta230V_BTN != Delta230V_State) {
       Delta230V_State = Delta230V_BTN;
       if (Delta230V_State == LOW) {
-
         if (enable_Delta230V == false) {
           enable_Delta230V = true;
           enable_YY230V = false;
@@ -148,13 +128,7 @@ void scanModeButtons() {
           PWM = 255;  // 255 = 0% speed
           analogWrite(pwm_pin, PWM);
           digitalWrite(rdy_pin, LOW);  // LOW enables speed adjustment
-
-          digitalWrite(EN_230V, HIGH);   // Enable on 230V VFD
-          digitalWrite(EN_460V, LOW);  // Enable on 460V VFD
-          digitalWrite(M_Type1, HIGH);   // enables Delta Star Enclosure Opto Isolators
-          digitalWrite(M_Type2, LOW);  // enables Wye/Double Wye Enclosure Opto Isolators
-          digitalWrite(relay2, HIGH);    // 230V vfd Relays & 230V motor voltage selector Relays
-          digitalWrite(relay1, LOW);   // 460V vfd Relays & 460V motor voltage selector Relays
+          delta230V_Relays();
         }
       }
     }

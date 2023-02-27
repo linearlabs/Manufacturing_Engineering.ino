@@ -50,14 +50,7 @@ void scanSpeedButtons() {
     digitalWrite(Delta230V_LED, HIGH);
     analogWrite(pwm_pin, PWM);
     digitalWrite(rdy_pin, HIGH);  // LOW enables speed adjustment
-
     // possible need a delay here for motor stoping time
-
-    digitalWrite(EN_230V, LOW);   // Enable on 230V VFD
-    digitalWrite(EN_460V, LOW);   // Enable on 460V VFD
-    digitalWrite(M_Type1, LOW);   // enables Delta Star Enclosure Opto Isolators
-    digitalWrite(M_Type2, LOW);   // enables Wye/Double Wye Enclosure Opto Isolators
-    digitalWrite(relay2, LOW);    // 230V vfd Relays & 230V motor voltage selector Relays
-    digitalWrite(relay1, LOW);    // 460V vfd Relays & 460V motor voltage selector Relays
+    relaysOff();
   }
 }

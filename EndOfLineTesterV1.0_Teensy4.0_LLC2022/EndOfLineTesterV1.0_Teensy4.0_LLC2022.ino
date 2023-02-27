@@ -34,7 +34,7 @@
 unsigned long lastDebounceTime = 0;  // the last time the output pin was toggled
 unsigned long debounceDelay = 50;    // the debounce time; increase if the output flickers
 int BTN_Debounce = 50;
-int PWM = 255;
+int PWM = 255; // 255 = off
 int displayPWM = 0;
 
 bool UP_BTN;
@@ -72,12 +72,7 @@ void setup() {
   pinMode(M_Type2, OUTPUT); // enables Wye/Double Wye Enclosure Opto Isolators
   pinMode(relay2, OUTPUT); // 230V vfd Relays & 230V motor voltage selector Relays
   pinMode(relay1, OUTPUT); // 460V vfd Relays & 460V motor voltage selector Relays
-  digitalWrite(EN_230V, LOW); // Enable on 230V VFD
-  digitalWrite(EN_460V, LOW); // Enable on 460V VFD
-  digitalWrite(M_Type1, LOW); // enables Delta Star Enclosure Opto Isolators
-  digitalWrite(M_Type2, LOW); // enables Wye/Double Wye Enclosure Opto Isolators
-  digitalWrite(relay2, LOW); // 230V vfd Relays & 230V motor voltage selector Relays
-  digitalWrite(relay1, LOW); // 460V vfd Relays & 460V motor voltage selector Relays
+  relaysOff();
 
   display.begin(SSD1306_SWITCHCAPVCC, SCREEN_ADDRESS);  //or 0x3C
   display.setTextColor(SSD1306_WHITE);
@@ -88,8 +83,8 @@ void setup() {
   display.drawBitmap(0, 0, LLC_FULL_LOGO, 128, 64, WHITE);  // display.drawBitmap(x position, y position, bitmap data, bitmap width, bitmap height, color)
   display.display();
 
-  analogWriteFrequency(pwm_pin, 1000);  // https://www.pjrc.com/teensy/td_pulse.html
-  analogWriteResolution(8);             // https://www.pjrc.com/teensy/td_pulse.html
+  analogWriteFrequency(pwm_pin, 1000);  // https://www.pjrc.com/teensy/td_pulse.html  (Freq)
+  analogWriteResolution(8);             // https://www.pjrc.com/teensy/td_pulse.html  (Resolution)
   pinMode(pwm_pin, OUTPUT);
   pinMode(rdy_pin, OUTPUT);
   digitalWrite(rdy_pin, HIGH);  // LOW enables speed adjustment
