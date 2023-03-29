@@ -1,46 +1,45 @@
-void redLED(){
-  strip.clear();  //   Set all pixels in RAM to 0 (off)
-  strip.setPixelColor(0, strip.Color(brightness, 0, 0)); // Red, 255 max
-  strip.show(); // Update strip with new contents
-}
-void greenLED(){
-  strip.clear();  //   Set all pixels in RAM to 0 (off)
-  strip.setPixelColor(0, strip.Color(0, brightness, 0)); // Green, 255 max
-  strip.show(); // Update strip with new contents
-}
-void blueLED(){
-  strip.clear();  //   Set all pixels in RAM to 0 (off)
-  strip.setPixelColor(0, strip.Color(0, 0, brightness)); // Blue, 255 max
-  strip.show(); // Update strip with new contents
-}
-
-void cycleLEDs() { // cycle colors with 7 LEDs
-  i = 0;
-  while (true) {
-    if (j == 3) {
-      break;
-    }
-    strip.clear();  //   Set all pixels in RAM to 0 (off)
-    if (j == 0) {
-      strip.setPixelColor(i, strip.Color(brightness, 0, 0)); // Red, 255 max
-    }
-    else if (j == 1) {
-      strip.setPixelColor(i, strip.Color(0, brightness, 0)); // Green, 255 max
-    }
-    else if (j == 2) {
-      strip.setPixelColor(i, strip.Color(0, 0, brightness)); // Blue, 255 max
-    }
-    strip.show(); // Update strip with new contents
-    delay(100);  // Pause for a moment
-    if (i == 7) {
-      i = 0;
-      j++;
-    }
-    else {
-      i++;
-    }
-  }
-}
+// void redLED(){
+//   strip.clear();  //   Set all pixels in RAM to 0 (off)
+//   strip.setPixelColor(0, strip.Color(brightness, 0, 0)); // Red, 255 max
+//   strip.show(); // Update strip with new contents
+// }
+// void greenLED(){
+//   strip.clear();  //   Set all pixels in RAM to 0 (off)
+//   strip.setPixelColor(0, strip.Color(0, brightness, 0)); // Green, 255 max
+//   strip.show(); // Update strip with new contents
+// }
+// void blueLED(){
+//   strip.clear();  //   Set all pixels in RAM to 0 (off)
+//   strip.setPixelColor(0, strip.Color(0, 0, brightness)); // Blue, 255 max
+//   strip.show(); // Update strip with new contents
+// }
+// void cycleLEDs() { // cycle colors with 7 LEDs
+//   i = 0;
+//   while (true) {
+//     if (j == 3) {
+//       break;
+//     }
+//     strip.clear();  //   Set all pixels in RAM to 0 (off)
+//     if (j == 0) {
+//       strip.setPixelColor(i, strip.Color(brightness, 0, 0)); // Red, 255 max
+//     }
+//     else if (j == 1) {
+//       strip.setPixelColor(i, strip.Color(0, brightness, 0)); // Green, 255 max
+//     }
+//     else if (j == 2) {
+//       strip.setPixelColor(i, strip.Color(0, 0, brightness)); // Blue, 255 max
+//     }
+//     strip.show(); // Update strip with new contents
+//     delay(100);  // Pause for a moment
+//     if (i == 7) {
+//       i = 0;
+//       j++;
+//     }
+//     else {
+//       i++;
+//     }
+//   }
+// }
 // void showStepperPosition() {
 //   if (rotations == 0) {
 //     R = 0;
@@ -72,7 +71,6 @@ void cycleLEDs() { // cycle colors with 7 LEDs
 //     G = brightness;
 //     B = brightness;
 //   }
-
 //   if (offsetPos >= 0 && offsetPos < 45) {
 //     strip.setPixelColor(0, strip.Color(R,G,B)); // Blue, 255 max
 //     strip.show();

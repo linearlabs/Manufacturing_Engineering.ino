@@ -39,11 +39,8 @@ void scanSpeedButtons() {
     enable_Y460V = false;
     enable_Y460V2 = false;
     enable_Delta230V = false;
-    PWM = 255;  // 255 = 0% speed
+    PWM = 256;  // 255 = 0% speed
     displayPWM = 0;
-    display.clearDisplay();                                   //for Clearing the display
-    display.drawBitmap(0, 0, LLC_FULL_LOGO, 128, 64, WHITE);  // display.drawBitmap(x position, y position, bitmap data, bitmap width, bitmap height, color)
-    display.display();
     digitalWrite(Y460V_LED, HIGH);
     digitalWrite(YY230V_LED, HIGH);
     digitalWrite(Y460V2_LED, HIGH);
@@ -52,5 +49,19 @@ void scanSpeedButtons() {
     digitalWrite(rdy_pin, HIGH);  // LOW enables speed adjustment
     // possible need a delay here for motor stoping time
     relaysOff();
+    delay(200); // delay here to wait for relay transients to disipate before I2C coms, transients causing bad OLED bugs
+    display.clearDisplay();
+    display.display();
+    for (int i = 4; i >= 1; i--) {
+      display.clearDisplay();
+      display.setCursor(0, 0);  // Start at top-left corner
+      display.println(i);
+      display.display();
+      delay(1000);
+    }
+
+    display.clearDisplay();                                   //for Clearing the display
+    display.drawBitmap(0, 0, LLC_FULL_LOGO, 128, 64, WHITE);  // display.drawBitmap(x position, y position, bitmap data, bitmap width, bitmap height, color)
+    display.display();
   }
 }

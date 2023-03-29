@@ -11,13 +11,10 @@
 #define EN_460V 22 // Enable on 460V VFD
 #define M_Type1 21 // enables Delta Star Enclosure Opto Isolators
 #define M_Type2 20 // enables Wye/Double Wye Enclosure Opto Isolators
-
 #define pwm_pin 15  // speed wiper DAC
 #define rdy_pin 14  // 10Vin enable for speed
-
 #define relay2 12 // 230V vfd Relays & 230V motor voltage selector Relays
 #define relay1 11 // 460V vfd Relays & 460V motor voltage selector Relays
-
 #define YY230V_LED 10
 #define Y460V_LED 9
 #define Y460V2_LED 8
@@ -30,42 +27,23 @@
 #define STOP 1
 #define DN 0
 
-
-unsigned long lastDebounceTime = 0;  // the last time the output pin was toggled
-unsigned long debounceDelay = 50;    // the debounce time; increase if the output flickers
-int BTN_Debounce = 50;
-int PWM = 255; // 255 = off
+int PWM = 256; // 255 = off
 int displayPWM = 0;
-
 bool UP_BTN;
 bool STOP_BTN;
 bool DN_BTN;
-
-bool YY230V_State;              // the current reading from the input pin
-bool last_YY230V_State = HIGH;  // the previous reading from the input pin
 bool YY230V_BTN;
 bool enable_YY230V = false;  // enable state
-
-bool Y460V_State;              // the current reading from the input pin
-bool last_Y460V_State = HIGH;  // the previous reading from the input pin
 bool Y460V_BTN;
 bool enable_Y460V = false;  // enable state
-
-bool Y460V2_State;              // the current reading from the input pin
-bool last_Y460V2_State = HIGH;  // the previous reading from the input pin
 bool Y460V2_BTN;
 bool enable_Y460V2 = false;  // enable state
-
-bool Delta230V_State;              // the current reading from the input pin
-bool last_Delta230V_State = HIGH;  // the previous reading from the input pin
 bool Delta230V_BTN;
 bool enable_Delta230V = false;  // enable state
-
 
 Adafruit_SSD1306 display(128, 64, &Wire, OLED_RESET);
 
 void setup() {
-
   pinMode(EN_230V, OUTPUT); // Enable on 230V VFD
   pinMode(EN_460V, OUTPUT); // Enable on 460V VFD
   pinMode(M_Type1, OUTPUT); // enables Delta Star Enclosure Opto Isolators
@@ -74,14 +52,7 @@ void setup() {
   pinMode(relay1, OUTPUT); // 460V vfd Relays & 460V motor voltage selector Relays
   relaysOff();
 
-  display.begin(SSD1306_SWITCHCAPVCC, SCREEN_ADDRESS);  //or 0x3C
-  display.setTextColor(SSD1306_WHITE);
-  display.setTextSize(4);
-
-  display.setCursor(0, 0);                                  // Start at top-left corner
-  display.clearDisplay();                                   //for Clearing the display
-  display.drawBitmap(0, 0, LLC_FULL_LOGO, 128, 64, WHITE);  // display.drawBitmap(x position, y position, bitmap data, bitmap width, bitmap height, color)
-  display.display();
+  beginDisplay();
 
   analogWriteFrequency(pwm_pin, 1000);  // https://www.pjrc.com/teensy/td_pulse.html  (Freq)
   analogWriteResolution(8);             // https://www.pjrc.com/teensy/td_pulse.html  (Resolution)

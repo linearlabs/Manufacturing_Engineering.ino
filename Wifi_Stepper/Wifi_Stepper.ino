@@ -13,8 +13,6 @@
 #include <Adafruit_GFX.h> // OLED library
 #include <Adafruit_SSD1306.h> // OLED library
 #include "LLC_LOGO.h" // img
-#include "snail.h" // img
-#include "LLC_FULL_LOGO.h" // img
 #include <Adafruit_NeoPixel.h>
 #ifdef __AVR__
 #include <avr/power.h> // Required for 16 MHz Adafruit Trinket
@@ -39,9 +37,11 @@ int j = 0;
 int R = 0; // Red
 int G = 0; // Green
 int B = 0; // Blue
+int speed = 800; // 800 is max at 12V
+int acceleration = 800; // 800 is max at 12V
 const int brightness = 50; // brightness of LEDs
 String inputStr = ""; // command input string
-String idn = "ESP8266, Wifi Stepper, V1.0"; // device ID
+const char* idn = "ESP8266, Wifi Stepper, V1.0"; // device ID
 String d = "";
 String message = ""; // variable message to send to all destinations
 float degree;
@@ -55,10 +55,6 @@ bool cw;
 bool movement;
 bool dIndex = 0;
 bool stepperRun = false;
-const int bitmapNum = 3; // # of pictures to display
-const unsigned char* bitmap[3] = { // pictures
-  LLC_LOGO, snail, LLC_FULL_LOGO
-};
 long steps = 0;
 long lastStep = 0;
 AS5600 as5600; // use default Wire
@@ -69,15 +65,14 @@ AccelStepper stepper = AccelStepper(motorInterfaceType, stepPin, dirPin);
 Adafruit_NeoPixel strip(LED_COUNT, LED_PIN, NEO_GRB); // Declare our NeoPixel strip object:
 
 void setup() {
+  strip.begin(); // INITIALIZE NeoPixel strip object (REQUIRED)
+  redLED();
   pinMode (enPin, OUTPUT); // X Driver enable and LED
   digitalWrite(enPin, HIGH); // en_X_State is variable high or low
   pinMode (halfStep, OUTPUT); // X Driver enable and LED
   digitalWrite(halfStep, LOW); 
-  strip.begin(); // INITIALIZE NeoPixel strip object (REQUIRED)
-  //strip.show(); // Turn OFF all pixels ASAP
-  //strip.setBrightness(255); // Set BRIGHTNESS to about 1/5 (max = 255)
   stepper.setAcceleration(500);
-  stepper.setMaxSpeed(50);
+  stepper.setMaxSpeed(800);
   display.begin(SSD1306_SWITCHCAPVCC, SCREEN_ADDRESS); //or 0x3C
   display.setTextSize(1); // Draw 2X-scale text
   display.setTextColor(SSD1306_WHITE);
@@ -97,9 +92,9 @@ void setup() {
   server.begin();
   as5600.setDirection(AS5600_COUNTERCLOCK_WISE);  // default, just be explicit.
   resetEncoder();
-  bitMaps();
+  bitMap();
   printInfo();
-  cycleLEDs();
+  blueLED();
 }
 void loop() {
   if (stepperRun == false) { // if stepper is not running
@@ -108,6 +103,5 @@ void loop() {
   else {
     runStepper();
     countRotations();
-    showStepperPosition();
   }
 }

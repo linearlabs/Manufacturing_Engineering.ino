@@ -61,8 +61,6 @@ void resetEncoder() {
   delta = 0.00;
   degree = as5600.rawAngle() * AS5600_RAW_TO_DEGREES; // read sensor
   firstPos = degree;
-  strip.clear();
-  strip.show();
 }
 void encoderDirection() {
   if (movement == true) {

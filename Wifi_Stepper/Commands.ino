@@ -24,6 +24,7 @@ void checkComms() {
 }
 void store(String input) {
   String startStr = input.substring(0, 5);
+  
   if (startStr == "*idn?") {
     Serial.println(idn);
     WebSerial.println(idn);
@@ -51,12 +52,8 @@ void store(String input) {
     steps = input.substring(5).toInt();
     message = "moving, " + stepS;
     sendToAll();
-    //Serial.print("moving, ");
-    //Serial.println(steps);
     digitalWrite(enPin, LOW);
     stepper.runToNewPosition(steps); // blocking
-    //stepper.moveTo(steps); // non blocking
-    //stepper.run(); // non blocking
     digitalWrite(enPin, HIGH);
     message = "moving, done";
     sendToAll();
